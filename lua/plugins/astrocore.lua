@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -12,14 +10,50 @@ return {
   opts = {
     -- Configure core features of AstroNvim
     features = {
-      large_buf = { size = 1024 * 500, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
+      large_buf = { size = 1024 * 300, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
       autopairs = true, -- enable autopairs at start
       cmp = true, -- enable completion at start
       diagnostics_mode = 3, -- diagnostic mode on start (0 = off, 1 = no signs/virtual text, 2 = no virtual text, 3 = on)
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
-    -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
+    -- config for myself
+    autocmds = {
+      auto_spell = {
+        {
+          event = "FileType",
+          desc = "Enable wrap and spell for text like documents",
+          pattern = { "markdown", "gitcommit", "text", "plaintex" },
+          callback = function()
+            vim.opt_local.wrap = false
+            vim.opt_local.spell = true
+          end,
+        },
+        auto_hid_tabline = {
+          event = "User",
+          desc = "Auto hid the tabline when there is only one buffer",
+          callback = function()
+            local new_showtabline = #vim.t.bufs > 1 and 2 or 1
+            if new_showtabline ~= vim.opt.showtabline:get() then vim.opt.showtabline = new_showtabline end
+          end,
+        },
+        auto_resession = {
+          event = "VimEnter",
+          desc = "Resore session on open",
+          callback = function()
+            if require("astrocore").is_available "resession.nvim" then
+              -- Only load the session if nvim was started with no args
+              local resession = require "resession"
+              -- sabe these to a different diretory, so our manual sessions don't get pullured
+              if vim.fn.argc(-1) == 0 then
+                resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
+                vim.cmd.doautoall "BufReadPre"
+              end
+            end
+          end,
+        },
+      },
+    }, -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
     diagnostics = {
       virtual_text = true,
       underline = true,
@@ -31,7 +65,7 @@ return {
         number = true, -- sets vim.opt.number
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
+        wrap = true, -- sets vim.opt.wrap
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
@@ -66,6 +100,12 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      },
+      i = {
+        ["ii"] = { "<esc>", desc = "esc key" },
+      },
+      v = {
+        ["ii"] = { "<esc>", desc = "esc key" },
       },
     },
   },
