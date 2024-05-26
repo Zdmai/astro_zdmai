@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroLSP allows you to customize the features in AstroNvim's LSP configuration engine
 -- Configuration documentation can be found with `:h astrolsp`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -16,6 +14,8 @@ return {
       codelens = true, -- enable/disable codelens refresh on start
       inlay_hints = false, -- enable/disable inlay hints on start
       semantic_tokens = true, -- enable/disable semantic token highlighting
+      lsp_handlers = true,
+      diagnostics_mode = 3,
     },
     -- customize lsp formatting options
     formatting = {
@@ -33,10 +33,15 @@ return {
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
       },
-      timeout_ms = 1000, -- default format timeout
+      timeout_ms = 500000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
+    },
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = { dynamicRegistration = true },
+      },
     },
     -- enable servers that you already have installed without mason
     servers = {
@@ -93,6 +98,17 @@ return {
           cond = function(client)
             return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens
           end,
+        },
+        gl = {
+          function() vim.diagnostic.open_float() end,
+          desc = "Hover diagnostics",
+        },
+      },
+      i = {
+        ["<C-l>"] = {
+          function() vim.lsp.buf.signature_help() end,
+          desc = "Signature help",
+          cond = "textDocument/signatureHelp",
         },
       },
     },
