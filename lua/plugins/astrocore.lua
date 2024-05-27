@@ -102,10 +102,7 @@ return {
         -- ["<C-S>"] = false,
       },
       i = {
-        ["ii"] = { "<esc>", desc = "esc key" },
-      },
-      v = {
-        ["ii"] = { "<esc>", desc = "esc key" },
+        ["jk"] = { "<esc>", desc = "esc key" },
       },
     },
   },
