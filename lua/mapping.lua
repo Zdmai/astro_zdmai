@@ -1,3 +1,4 @@
+local g = vim.g
 local map = vim.keymap.set
 
 vim.cmd [[
@@ -17,3 +18,5 @@ nnoremap <C-l> :call TmuxYabaiOrSplitSwitch('l', 'east')<cr>
 
 map("v", "<", "<gv", { desc = "better left move" })
 map("v", ">", ">gv", { desc = "better right move" })
+
+g.vimtex_view_method = "sioyek"

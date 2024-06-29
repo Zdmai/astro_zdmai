@@ -1,4 +1,4 @@
-local ls = require("luasnip")
+local ls = require "luasnip"
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
@@ -17,17 +17,12 @@ local get_visual = function(args, parent)
   end
 end
 
-local tex = require("util.latex")
+local tex = require "util.latex"
 
 return {
   s({ trig = "mm", snippetType = "autosnippet" }, fmta("$<>$", i(1))),
   s({ trig = "dd", snippetType = "autosnippet" }, fmta("$$\n<>\n$$", i(1))),
-  s(
-    { trig = "\\num", snippetType = "autosnippet" },
-    f(function()
-      return "\\nonumber"
-    end)
-  ),
+  s({ trig = "\\num", snippetType = "autosnippet" }, f(function() return "\\nonumber" end)),
   s(
     { trig = "align", snippetType = "autosnippet" },
     fmta(

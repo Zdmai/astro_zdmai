@@ -13,5 +13,4 @@ return {
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.cpp" },
   { import = "astrocommunity.pack.lua" },
-  { import = "astrocommunity.pack.lua" },
 }

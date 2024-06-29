@@ -1,4 +1,4 @@
-local ls = require("luasnip")
+local ls = require "luasnip"
 local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
@@ -11,11 +11,6 @@ local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
 return {
-  s(
-    "date",
-    f(function()
-      return os.date("%D - %H:%M")
-    end)
-  ),
-  s("choicenode", c(1, { t("choice 1"), t("choice 2"), t("choice 3") })),
+  s("date", f(function() return os.date "%D - %H:%M" end)),
+  s("choicenode", c(1, { t "choice 1", t "choice 2", t "choice 3" })),
 }
