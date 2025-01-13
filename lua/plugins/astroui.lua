@@ -9,7 +9,10 @@ return {
   ---@type AstroUIOpts
   opts = {
     -- change colorscheme
-    colorscheme = "catppuccin-mocha",
+    -- colorscheme = "catppuccin-mocha",
+    -- colorscheme = "gruvbox-baby",
+    -- colorscheme = "astrolight",
+    colorscheme = "astrodark",
     -- AstroUI allows you to easily modify highlight groups easily for any and all colorschemes
     highlights = {
       init = { -- this table overrides highlights in all themes
