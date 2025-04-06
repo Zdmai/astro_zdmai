@@ -103,6 +103,7 @@ return {
       },
       i = {
         ["jk"] = { "<esc>", desc = "esc key" },
+        ["JK"] = { "<esc>", desc = "esc key" },
       },
     },
   },
